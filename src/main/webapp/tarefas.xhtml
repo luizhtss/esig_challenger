@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+   <link rel="stylesheet" type="text/css" href="styles/styles.css" />
+   <h:outputStylesheet library="webjars" name="primeflex/3.2.0/primeflex.min.css" />
+   <title>Listagem de Tarefas</title>
+</h:head>
+
+<h:body>
+   <div class="card">
+      <p:panel header="Listagem de Tarefas" style="width: 65%; margin: 0 auto;">
+         <h:form>
+            <div class="card">
+               <div class="field grid">
+                  <p:outputLabel for="numero" styleClass="col-fixed" style="width:130px" value="Número:"/>
+                  <div class="col">
+                     <p:inputNumber id="numero" value="#{tarefaController.filtroTarefa.numero}" minValue="1" decimalPlaces="0" thousandSeparator="" decimalSeparator=""/>
+                  </div>
+                  <p:button value="Cadastramento de Tarefa" styleClass="ui-button-secondary" outcome="index" />
+               </div>
+               <div class="field grid">
+                  <p:outputLabel for="tdesc" styleClass="col-fixed" style="width:130px" value="Título/Descrição:"/>
+                  <div class="col">
+                     <p:inputText id="tdesc" value="#{tarefaController.filtroTarefa.tituloDescricao}" style="width: 900px" styleClass="ui-fluid"/>
+                  </div>
+               </div>
+            </div>
+            <div class="card">
+               <div class="formgroup-inline">
+                  <div class="field grid">
+                     <p:outputLabel for="responsavel" styleClass="col-fixed" style="width:130px" value="Responsável:"/>
+                     <p:selectOneMenu id="responsavel" value="#{tarefaController.filtroTarefa.responsavel}" style="width: 200px">
+                        <f:selectItem itemValue="" itemLabel="Todos" />
+                        <f:selectItems value="#{tarefaController.pessoas}" var="responsavel" itemValue="#{responsavel}" itemLabel="#{responsavel}" />
+                     </p:selectOneMenu>
+                  </div>
+                  <div class="field grid">
+                     <p:outputLabel for="situacao" styleClass="col-fixed" style="width:90px" value="Situação:"/>
+                     <p:selectOneMenu id="situacao" value="#{tarefaController.filtroTarefa.situacao}" style="width: 200px">
+                        <f:selectItem itemValue="" itemLabel="Todos" />
+                        <f:selectItems value="#{tarefaController.situacaoList}" var="situacao" itemValue="#{situacao}" itemLabel="#{situacao.label}" />
+                     </p:selectOneMenu>
+                  </div>
+                  <div class="field grid">
+                     <p:outputLabel for="deadline" styleClass="col-fixed" style="width:90px" value="Deadline: "/>
+                     <p:calendar styleClass="campo" id="deadline" inputStyle="width: 150px;" value="#{tarefaController.filtroTarefa.deadline}" mode="popup" showButtonPanel="true" requiredMessage="Selecione um prazo para cumprir a tarefa"/>
+                  </div>
+                  <div class="campo">
+                     <p:commandButton value="Buscar" update="tabelaTarefas" icon="pi pi-search" styleClass="botao-busca" disabled="#{tarefaController.tarefas.size() eq 0}" style="width: 100px"/>
+                  </div>
+               </div>
+            </div>
+
+            <br/><br/>
+
+            <p:dataTable id="tabelaTarefas" widgetVar="tabelaTarefas"  var="tarefa" value="#{tarefaController.tarefas}" emptyMessage="Nenhuma tarefa encontrada">
+               <p:column headerText="Número">
+                  #{tarefa.numero}
+               </p:column>
+               <p:column headerText="Título">
+                  #{tarefa.titulo}
+               </p:column>
+               <p:column headerText="Responsável">
+                  #{tarefa.responsavel}
+               </p:column>
+               <p:column headerText="Ações">
+                  <p:commandLink value="Editar" onclick="#{tarefaController.selecionarTarefa(tarefa)}" action="#{tarefaController.selecionarTarefa(tarefa)}" update="editarTarefaDialog" oncomplete="PF('editarTarefaDialog').show();"/>
+                  |
+                  <p:commandLink value="Excluir" action="#{tarefaController.excluir(tarefa)}" update="tabelaTarefas" />
+                  <ui:fragment rendered="#{tarefa.naoConcluida()}">
+                     |
+                     <p:commandLink value="Concluir" action="#{tarefaController.concluir(tarefa)}" update="tabelaTarefas"/>
+                  </ui:fragment>
+
+                  |
+                  <p:commandLink value="Visualizar" onclick="#{tarefaController.selecionarTarefa(tarefa)}" action="#{tarefaController.selecionarTarefa(tarefa)}" update="visualizarTarefaDialog" oncomplete="PF('visualizarTarefaDialog').show();"/>
+               </p:column>
+            </p:dataTable>
+         </h:form>
+      </p:panel>
+   </div>
+   <p:dialog id="visualizarTarefaDialog" widgetVar="visualizarTarefaDialog" modal="true" header="Tarefa ##{tarefaController.tarefa.numero}" resizable="false" responsive="true">
+      <h:form>
+         <div class="card">
+            <div class="field grid">
+               <p:outputLabel for="titulo" styleClass="col-fixed" style="width:130px" value="Título:"/>
+               <div class="col">
+                  <p:inputText id="titulo" value="#{tarefaController.tarefa.titulo}" style="width: 700px" disabled="true"/>
+               </div>
+            </div>
+            <div class="field grid">
+               <p:outputLabel for="descricao" styleClass="col-fixed" style="width:130px" value="Descrição:"/>
+               <div class="col">
+                  <p:inputTextarea id="descricao" value="#{tarefaController.tarefa.descricao}" style="width: 100% !important;" disabled="true"/>
+               </div>
+            </div>
+            <div class="card">
+               <div class="formgroup-inline">
+                  <div class="field grid">
+                     <p:outputLabel for="responsavelModal" styleClass="col-fixed" style="width:130px" value="Responsável:"/>
+                     <p:selectOneMenu id="responsavelModal" style="width: 200px" disabled="true">
+                        <f:selectItem itemValue="" itemLabel="#{tarefaController.tarefa.responsavel}" />
+                     </p:selectOneMenu>
+                  </div>
+                  <div class="field grid">
+                     <p:outputLabel for="situacaoModal" styleClass="col-fixed" style="width:130px" value="Situação:"/>
+                     <p:selectOneMenu id="situacaoModal" style="width: 200px" disabled="true">
+                        <f:selectItem itemValue="" itemLabel="#{tarefaController.tarefa.situacao.label}" />
+                     </p:selectOneMenu>
+                  </div>
+                  <div class="field grid">
+                     <p:outputLabel for="deadlineInfo" styleClass="col-fixed" style="width:90px" value="Deadline: "/>
+                     <p:calendar styleClass="campo" id="deadlineInfo" inputStyle="width: 150px;" value="#{tarefaController.tarefa.deadline}" mode="popup" showButtonPanel="true" disabled="true"/>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </h:form>
+   </p:dialog>
+   <p:dialog id="editarTarefaDialog" widgetVar="editarTarefaDialog" modal="true" header="Editar tarefa ##{tarefaController.tarefa.numero}" resizable="false" responsive="true">
+      <h:form>
+         <div class="card">
+            <div class="field grid">
+               <p:outputLabel for="editarTitulo" styleClass="col-fixed" style="width:130px" value="Título:"/>
+               <div class="col">
+                  <p:inputText id="editarTitulo" value="#{tarefaController.tarefa.titulo}" style="width: 700px"/>
+               </div>
+            </div>
+            <div class="field grid">
+               <p:outputLabel for="editarDescricao" styleClass="col-fixed" style="width:130px" value="Descrição:"/>
+               <div class="col">
+                  <p:inputTextarea id="editarDescricao" value="#{tarefaController.tarefa.descricao}" style="width: 100% !important;"/>
+               </div>
+            </div>
+            <div class="card">
+               <div class="formgroup-inline">
+                  <div class="field grid">
+                     <p:outputLabel for="editarResponsavel" styleClass="col-fixed" style="width:130px" value="Responsável:"/>
+                     <p:selectOneMenu id="editarResponsavel" value="#{tarefaController.tarefa.responsavel}" style="width: 200px">
+                        <f:selectItems value="#{tarefaController.pessoas}" var="responsavel" itemValue="#{responsavel}" itemLabel="#{responsavel}" />
+                     </p:selectOneMenu>
+                  </div>
+                  <div class="field grid">
+                     <p:outputLabel for="editarSituacao" styleClass="col-fixed" style="width:130px" value="Situação:"/>
+                     <p:selectOneMenu id="editarSituacao" value="#{tarefaController.tarefa.situacao}" style="width: 200px">
+                        <f:selectItems value="#{tarefaController.situacaoList}" var="situacao" itemValue="#{situacao}" itemLabel="#{situacao.label}" />
+                     </p:selectOneMenu>
+                  </div>
+                  <div class="field grid">
+                     <p:outputLabel for="deadlineEdit" styleClass="col-fixed" style="width:90px" value="Deadline: "/>
+                     <p:calendar styleClass="campo" id="deadlineEdit" inputStyle="width: 150px;" value="#{tarefaController.tarefa.deadline}" mode="popup" showButtonPanel="true" requiredMessage="Selecione um prazo para cumprir a tarefa"/>
+                  </div>
+                  <div class="campo">
+                     <p:commandButton value="Salvar" action="#{tarefaController.editar(tarefaController.tarefa)}" update="@widgetVar(tabelaTarefas) editarTarefaDialog"  icon="pi pi-check" styleClass="botao-busca" style="width: 100px; background-color: #28a745; border-color: #28a745"/>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </h:form>
+   </p:dialog>
+</h:body>
+</html>

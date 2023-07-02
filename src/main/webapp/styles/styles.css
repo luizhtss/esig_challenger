@@ -1,0 +1,97 @@
+.meu-formulario {
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.meu-formulario input[type="text"],
+.meu-formulario textarea {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.meu-formulario input[type="text"]:focus,
+.meu-formulario textarea:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px #007bff;
+}
+
+.meu-formulario label {
+    color: #333;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+
+
+.meu-formulario input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.meu-formulario input[type="submit"]:focus,
+.meu-formulario input[type="submit"]:hover {
+    outline: none;
+    background-color: #0056b3;
+}
+
+.meu-formulario .titulo {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+
+.meu-formulario .mensagem-sucesso {
+    color: #28a745;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.meu-formulario {
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.formulario-largura {
+    max-width: 600px;
+    margin: 0 auto;
+}
+.campoSelect {
+    width: 300px;
+}
+[id$=botaoCadastrar] {
+    width: 300px;
+}
+
+body .ui-panelgrid .ui-panelgrid-cell {
+    background: none;
+    border: none;
+}
+.botao-tarefas {
+    padding: 10px 20px;
+    background-color: #ff9900;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.botao-tarefas:hover {
+    background-color: #ffcc66;
+}

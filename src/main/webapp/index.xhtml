@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <link rel="stylesheet" type="text/css" href="styles/styles.css" />
+    <title>Cadastrar Tarefa</title>
+</h:head>
+
+<h:body>
+    <h:form styleClass="meu-formulario formulario-largura">
+        <div style="text-align: center;">
+            <h:button value="Lista de Tarefas" outcome="tarefas" styleClass="botao-tarefas"/>
+        </div>
+        <p:panelGrid columns="2">
+        <p:growl id="growl" showDetail="false" />
+        <p:growl id="growl-sticky" for="sticky-key" showDetail="false" sticky="true" />
+
+        <h3 class="titulo">Título:</h3>
+        <h:inputText id="titulo" styleClass="campo" value="#{tarefaController.tarefa.titulo}" required="true" requiredMessage="O campo título é obrigatório"/>
+
+            <h3 class="titulo">Descrição:</h3>
+        <h:inputTextarea id="descricao" styleClass="campo descricao" value="#{tarefaController.tarefa.descricao}" required="true" requiredMessage="O campo descrição é obrigatório"/>
+
+        <h3 class="titulo">Responsável:</h3>
+        <h:selectOneMenu id="responsavel" styleClass="campoSelect" value="#{tarefaController.tarefa.responsavel}" required="true" requiredMessage="Selecione o responsável pela tarefa">
+            <f:selectItem itemValue="" itemLabel="Selecionar" />
+            <f:selectItems value="#{tarefaController.pessoas}" var="pessoa" itemValue="#{pessoa}" itemLabel="#{pessoa}" />
+        </h:selectOneMenu>
+
+        <h3 class="titulo">Prioridade:</h3>
+        <h:selectOneMenu id="prioridade" styleClass="campoSelect" value="#{tarefaController.tarefa.prioridade}" required="true" requiredMessage="Selecione a prioridade da tarefa.">
+            <f:selectItem itemValue="" itemLabel="Selecionar" />
+            <f:selectItems value="#{tarefaController.prioridades}" var="prioridade" itemLabel="#{prioridade.prioridadeStr}" itemValue="#{prioridade}" />
+        </h:selectOneMenu>
+
+        <h3 class="titulo">Deadline:</h3>
+        <p:calendar styleClass="campo" inputStyle="width: 150px;" value="#{tarefaController.tarefa.deadline}" mode="popup" required="true" showButtonPanel="true" requiredMessage="Selecione um prazo para cumprir a tarefa"/>
+        </p:panelGrid>
+        <br/><br/>
+        <div style="text-align: center;">
+            <h:commandButton id="botaoCadastrar" value="Cadastrar" action="#{tarefaController.cadastrar}" styleClass="campo"  />
+        </div>
+    </h:form>
+</h:body>
+</html>
