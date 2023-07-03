@@ -1,0 +1,23 @@
+version: '3'
+services:
+  payara:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    depends_on:
+      - postgres
+    volumes:
+      - ./target/ESIG-Challenger-1.0.war:/opt/payara/deployments/ESIG-Challenger.war
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=12345
+      - POSTGRES_DB=edb
+    ports:
+      - 5432:5432
+    volumes:
+      - ./data:/var/lib/postgresql/whatever

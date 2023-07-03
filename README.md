@@ -93,4 +93,34 @@ Certifique-se de que o GlassFish Server esteja instalado corretamente em sua má
 
 Se você estiver utilizando outro servidor de aplicação, consulte a documentação correspondente para obter os comandos de deploy adequados.
 
-> **Nota:** Certifique-se de ter o GlassFish Server ou outro servidor Java EE configurado corretamente em sua máquina e de atualizar as configurações de usuário e senha no arquivo `persistence.xml`.
+## Executando com o docker
+
+1. Clone o repositório do projeto:
+
+   ```
+   git clone https://github.com/luizhtss/egs_taskmanager.git
+   ```
+
+2. Navegue até o diretório do projeto:
+
+   ```
+   cd egs_taskmanager
+   ```
+
+3. Execute o comando Maven para construir o arquivo WAR:
+
+   ```
+   mvn clean package
+   ```
+
+4. Inicie o container da aplicação:
+
+   ```
+   docker-compose up
+   ```
+5. Acesse a aplicação pelo navegador usando o seguinte endereço: [http://localhost:8080/ESIG-Challenger](http://localhost:8080/ESIG-Challenger)
+
+
+## Deploy usando docker
+
+> **Nota:** Certifique-se de ter o GlassFish Server ou outro servidor Java EE configurado corretamente em sua máquina e de atualizar as configurações de host, usuário e senha no arquivo `persistence.xml`.
