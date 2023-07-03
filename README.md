@@ -52,13 +52,13 @@ Para executar a aplicação em um ambiente local, siga as instruções abaixo:
 1. Clone o repositório do projeto:
 
    ```
-   git clone https://github.com/luizhtss/egs_taskmanager.git
+   git clone https://github.com/luizhtss/esig_taskmanager.git
    ```
 
 2. Navegue até o diretório do projeto:
 
    ```
-   cd egs_taskmanager
+   cd esig_taskmanager
    ```
 
 3. Execute o comando Maven para construir o arquivo WAR:
