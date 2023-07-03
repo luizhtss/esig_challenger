@@ -118,3 +118,8 @@ Se você estiver utilizando outro servidor de aplicação, consulte a documenta�
    docker-compose up
    ```
 5. Após a inicialização, acesse a aplicação pelo navegador usando o seguinte endereço: [http://localhost:8080/ESIG-Challenger](http://localhost:8080/ESIG-Challenger)
+
+## Contato
+
+- Nome: Luiz Henrique Targino da Silva Souza
+- E-mail: lhtargino@gmail.com
