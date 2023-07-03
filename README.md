@@ -89,7 +89,7 @@ Para executar a aplicação em um ambiente local, siga as instruções abaixo:
 
 6. Acesse a aplicação pelo navegador usando o seguinte endereço: [http://localhost:8080/ESIG-Challenger](http://localhost:8080/ESIG-Challenger)
 
-> **Nota:** Certifique-se de ter o GlassFish Server ou outro servidor Java EE configurado corretamente em sua máquina e de atualizar as configurações de host, usuário e senha no arquivo `persistence.xml`.
+> **Nota:** Certifique-se de ter o GlassFish Server 5 ou outro servidor Java EE (JDK 8) configurado corretamente em sua máquina e de atualizar as configurações de host, usuário e senha no arquivo `persistence.xml`.
 Se você estiver utilizando outro servidor de aplicação, consulte a documentação correspondente para obter os comandos de deploy adequados.
 
 ## Executando com o docker
